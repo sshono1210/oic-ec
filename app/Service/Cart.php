@@ -13,18 +13,11 @@ class Cart extends Model
 {
     //商品の追加
     public function addItem($id, $amount){
-        //idからどの野菜を選択したかを見分ける
         $item = DB::table('vegetables')->where('id', $id)->first(); //idが一致するものをvegetableテーブルから検索、取得
+        $item->amount = $amount; //objの$itemにamountを追加
         $items = session()->get("items",[]); //セッションデータを取得、nullの場合は空の配列
-
-
-
-        $items[] = [
-            "item" => $item,
-            "amount" => $amount
-        ]; // 取得したデータにオブジェクトを保存
+        $items[] = $item; // 取得したデータにオブジェクトを保存
         session()->put("items", $items); //取得したデータをsessionに保存。 $_SESSION["items"] に保存するのと同じ
-        dd(session()->get("items", []));
     }
     //商品の削除
     public function removeItem($index){
@@ -36,9 +29,27 @@ class Cart extends Model
     }
     //カート内商品すべてを取得
     public function getList(){
-        $items = session()->get("items.item",[]); //セッションデータを取得、nullの場合は空の配列
-//        $id =  $items["id" => "1"];
-//        dd($id);
+        $cartItems = session()->get("items",[]); //セッションデータをそのまま取得、nullの場合は空の配列
+
+        $items = []; //表に渡す最終的な商品の配列（数量は足し算済みになってるようにする）
+
+        foreach($cartItems as $cartItem){
+            $id = $cartItem->id;
+//            $items[$id] =
+
+//            if($id === 2) {
+//
+//            }
+//            if($id === 3) {
+//
+//            }
+//            if($id === 4) {
+//
+//            }
+//            if($id === 5) {
+//
+//            }
+        };
 
 //        foreach($items as $item){
 //            $id = $item["id"]->get();
@@ -53,6 +64,7 @@ class Cart extends Model
 //            "amount" => "じゃがいも",
 //            "price" => "じゃがいも"
 //        ];
+//        dd($items);
         return $items;
     }
 

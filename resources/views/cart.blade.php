@@ -67,6 +67,7 @@
                         <tr>
                             <th>商品名</th>
                             <th>規格・サイズ</th>
+                            <th>数量</th>
                             <th>価格（税込）</th>
                         </tr>
                         </thead>
@@ -76,6 +77,7 @@
                             <tr>
                                 <td>{{ $item->kana }}</td>
                                 <td>{{ $item->size }}</td>
+                                <td>{{ $item->amount }}</td>
                                 <td>¥ {{ $item->price }}</td>
                                 <td style="text-align: center;"><a href="/delete?index={{ $index }}">削除</a></td>
                             </tr>
