@@ -34,9 +34,10 @@ Route::get('/detail', function(Request $request){
 
 // カートに入れる
 Route::post('/cart', function(Request $request){
-    $id = $request->get("id"); //idを取得
+//    $id = $request->get("id"); //idを取得
+    $item = $request->all(); //選択した商品のデータ（id、amountを含む）を取得
     $cart = new Cart();
-    $cart->addItem($id);
+    $cart->addItem($item); //選択した商品のデータ全部をまるごと渡す
     return redirect("/cart"); //カートのページへリダイレクト
 });
 
