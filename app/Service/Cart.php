@@ -12,16 +12,16 @@ use Illuminate\Support\Facades\DB;
 class Cart extends Model
 {
     //商品の追加
-    public function addItem($item){
+    public function addItem($id, $amount){
         //idからどの野菜を選択したかを見分ける
-        $id = $item["id"];
         $item = DB::table('vegetables')->where('id', $id)->first(); //idが一致するものをvegetableテーブルから検索、取得
-
-
         $items = session()->get("items",[]); //セッションデータを取得、nullの場合は空の配列
+
+
+
         $items[] = [
             "item" => $item,
-            "amount" => 2
+            "amount" => $amount
         ]; // 取得したデータにオブジェクトを保存
         session()->put("items", $items); //取得したデータをsessionに保存。 $_SESSION["items"] に保存するのと同じ
         dd(session()->get("items", []));
