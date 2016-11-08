@@ -24,21 +24,25 @@ class Cart extends Model
      * 追加時点で商品をまとめて集計する
      */
     public function addItem($id, $amount){
-        
+
         $item = DB::table('vegetables')->where('id', $id)->first(); //idが一致するものをvegetableテーブルから検索、取得
-        
-        $items = session()->get("items",[]); //セッションデータを取得、nullの場合は空の配列
-        if(isset($item[$id]))
-        {//登録済み商品の追加パターン
-            $item[$id]["amount"] = $item[$id]["amount"]+$amouont;
-        }else
-        {//新規追加アイテムパターン
-            $item[$id] = [
-                "item" => $item,
-                "amouont" => $amount
-            ]
-        }        
-        session()->put("items", $items); //取得したデータをsessionに保存。 $_SESSION["items"] に保存するのと同じ
+
+        $sessionItems = session()->get("items",[]); //セッションデータを取得、nullの場合は空の配列
+
+//        foreach($items as $item) {
+            if(isset($sessionItems[$id]))
+            {//登録済み商品の追加パターン
+                $sessionItems[$id]["amount"] = $sessionItems[$id]["amount"]+$amount;
+            }else
+            {//新規追加アイテムパターン
+                $sessionItems[$id] = [
+                    "item" => $item,
+                    "amount" => $amount
+                ];
+            }
+//        }
+
+        session()->put("items", $sessionItems); //取得したデータをsessionに保存。 $_SESSION["items"] に保存するのと同じ
     }
     //商品の削除
     public function removeItem($index){
@@ -52,10 +56,10 @@ class Cart extends Model
     public function getList(){
         $cartItems = session()->get("items",[]); //セッションデータをそのまま取得、nullの場合は空の配列
 
-        $items = []; //表に渡す最終的な商品の配列（数量は足し算済みになってるようにする）
-
-        foreach($cartItems as $cartItem){
-            $id = $cartItem->id;
+//        $items = []; //表に渡す最終的な商品の配列（数量は足し算済みになってるようにする）
+//
+//        foreach($cartItems as $cartItem){
+//            $id = $cartItem->id;
 //            $items[$id] =
 
 //            if($id === 2) {
@@ -70,7 +74,7 @@ class Cart extends Model
 //            if($id === 5) {
 //
 //            }
-        };
+//        };
 
 //        foreach($items as $item){
 //            $id = $item["id"]->get();
@@ -86,7 +90,7 @@ class Cart extends Model
 //            "price" => "じゃがいも"
 //        ];
 //        dd($items);
-        return $items;
+        return $cartItems;
     }
 
 

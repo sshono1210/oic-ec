@@ -75,10 +75,10 @@
                         {{--sessionに入ってるデータをループで回す--}}
                         @foreach($items as $index=>$item)
                             <tr>
-                                <td>{{ $item->kana }}</td>
-                                <td>{{ $item->size }}</td>
-                                <td>{{ $item->amount }}</td>
-                                <td>¥ {{ $item->price }}</td>
+                                <td>{{ $item["item"]->kana }}</td>
+                                <td>{{ $item["item"]->size }}</td>
+                                <td>{{ $item["amount"] }}</td>
+                                <td>¥ {{ $item["item"]->price }}</td>
                                 <td style="text-align: center;"><a href="/delete?index={{ $index }}">削除</a></td>
                             </tr>
                         @endforeach

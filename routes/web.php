@@ -36,7 +36,7 @@ Route::get('/detail', function(Request $request){
 Route::post('/cart', function(Request $request){
     $id = $request->get("id"); //idを取得
 //    $amount = $request->get("amount"); //amountを取得
-    $amount = 3; //仮で
+    $amount = 1; //仮で
     $cart = new Cart();
     $cart->addItem($id, $amount); //選択した商品のデータ全部をまるごと渡す
     return redirect("/cart"); //カートのページへリダイレクト
