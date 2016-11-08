@@ -167,6 +167,9 @@ return [
          * Package Service Providers...
          */
 
+        \Chatbox\Heroku\HerokuPostgresServiceProvider::class,
+        \Chatbox\Heroku\HerokuLoggerServiceProvider::class,
+
         //
 
         /*
