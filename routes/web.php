@@ -65,3 +65,31 @@ Route::get('/delete/all', function(){
     $cart->clear();
     return redirect("/cart"); //カートのページへリダイレクト
 });
+
+// カートを空にする
+Route::get('/payment', function(){
+    return view('/payment');
+});
+Route::post('/pay', function(Request $request){
+
+    $test = $request->all();
+
+    dd($test);
+
+    $client = new \GuzzleHttp\Client();
+    $url = "";
+    $response = $client->post($url,[
+        "auth" => [$user_token,""],
+        "form_params" =>[
+            "amount"=>"",
+            "currency" => "",
+            "token_id" => ""
+        ]
+    ]);
+    $body = $response->getBody()->getContents();
+
+//    Payjp.api_key = "" #テスト秘密鍵を入れる
+//  result = Payjp::Charge.create(amount: 65536, currency: "jpy", card: params["payjp-token"])
+//
+//  redirect '/payments/new'
+});

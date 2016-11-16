@@ -56,43 +56,51 @@
     <!-- Main -->
     <div id="main">
         <div class="inner">
-            <h2>お買い物かご</h2>
-            <a href="/delete/all" class="button" style="margin-bottom: 20px;">カートを空にする</a>
+            <h2>購入手続き</h2>
+
+            <form action="/pay" method="post">
+                {!! csrf_field() !!}
+                <script src="https://checkout.pay.jp/"
+                    class="payjp-button"
+                    data-text="カード情報を入力"
+                    data-key="pk_test_afd30c2386c6706033bfe13d">
+                </script>
+            </form>
 
             <div class="table-wrapper">
                 {{--商品が入っているとき--}}
-                @if($items)
-                    <table class="alt">
-                        <thead>
-                        <tr>
-                            <th>商品名</th>
-                            <th>規格・サイズ</th>
-                            <th>数量</th>
+                {{--@if($items)--}}
+                    {{--<table class="alt">--}}
+                        {{--<thead>--}}
+                        {{--<tr>--}}
+                            {{--<th>商品名</th>--}}
+                            {{--<th>規格・サイズ</th>--}}
+                            {{--<th>数量</th>--}}
                             {{--<th>価格（税込）</th>--}}
-                        </tr>
-                        </thead>
-                        <tbody>
+                        {{--</tr>--}}
+                        {{--</thead>--}}
+                        {{--<tbody>--}}
                         {{--sessionに入ってるデータをループで回す--}}
-                        @foreach($items as $index=>$item)
-                            <tr>
-                                <td>{{ $item["item"]->kana }}</td>
-                                <td>{{ $item["item"]->size }}</td>
-                                <td>{{ $item["amount"] }}</td>
+                        {{--@foreach($items as $index=>$item)--}}
+                            {{--<tr>--}}
+                                {{--<td>{{ $item["item"]->kana }}</td>--}}
+                                {{--<td>{{ $item["item"]->size }}</td>--}}
+                                {{--<td>{{ $item["amount"] }}</td>--}}
                                 {{--<td>¥ {{ $item["item"]->price }}</td>--}}
-                                <td style="text-align: center;"><a href="/delete?index={{ $index }}">削除</a></td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                {{--商品が入っていないとき--}}
-                @else
-                    <p>商品は入っていません。</p>
-                @endif
+                                {{--<td style="text-align: center;"><a href="/delete?index={{ $index }}">削除</a></td>--}}
+                            {{--</tr>--}}
+                        {{--@endforeach--}}
+                        {{--</tbody>--}}
+                    {{--</table>--}}
+                    {{--商品が入っていないとき--}}
+                {{--@else--}}
+                    {{--<p>商品は入っていません。</p>--}}
+                {{--@endif--}}
             </div>
 
             <ul class="actions fit">
-                <li><a href="/" class="button fit">買い物を続ける</a></li>
-                <li><a href="/payment" class="button special fit">購入手続きへ</a></li>
+                <li><a href="/cart" class="button fit">カートへ戻る</a></li>
+                <li><a href="#" class="button special fit">購入手続きへ</a></li>
             </ul>
 
 
